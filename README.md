@@ -30,4 +30,6 @@
 
 ---
 
-Ссылка на дизассемблерный файл и .json файл сигнатур для GoReSym: https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
+### Детали
+* Ссылка на дизассемблерный файл и .json файл сигнатур для GoReSym: https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
+* Ссылка с VirusTotal: https://www.virustotal.com/gui/file/a01d84b8274b53fa29c2904457057dcd4c969a1d769eca103f5c9507091720fe/details
