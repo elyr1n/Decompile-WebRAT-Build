@@ -30,4 +30,4 @@
 
 ---
 
-Ссылка на дизассемблерный файл и сигнатуры для GoReSym: https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
+Ссылка на дизассемблерный файл и .json файл сигнатур для GoReSym: https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
