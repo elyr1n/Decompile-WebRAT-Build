@@ -20,7 +20,7 @@
 | `main.getActiveWin + main.GetWindowText` | получение дескриптора окна с помощью main.getActiveWin и получение название окна с помощью main.GetWindowText |
 | `main.GetHWID` | получение MachineGuid (HWID) с помощью реестра |
 | `main.tonResolve + main.tryTonResolve` | проверяет запущен-ли процесс каждую секунду, и если нет - пересоздает его |
-| `main.Steal` | полный запуск функций: логины/пароли (main.getGecko / main.getChrome / main.getYandexLogins), cookies, сессии (steam, telegram, discord / main.getSteams, main.getDiscord), скриншот, крипто-кошельки и упаковывает всё в .zip |
+| `main.Steal` | полный запуск функций: собирает логины/пароли (main.getGecko / main.getChrome / main.getYandexLogins), cookies, сессии (steam, telegram, discord / main.getSteams, main.getDiscord), скриншот, крипто-кошельки и упаковывает всё в .zip |
 
 (функции не все, закинул самые основные в описание чтобы показать как работает этот ратник)
 
