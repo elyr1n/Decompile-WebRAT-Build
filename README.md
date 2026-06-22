@@ -1,37 +1,64 @@
-### Описание файла
+## Описание файла
 
-* Файл упакован с помощью UPX, но с помощью upx -d file.exe легко снять упаковщик UPX
+* Файл упакован с помощью UPX, но с помощью `upx -d file.exe` легко снять упаковщик UPX
 * Все функции легко распознать с помощью GoReSym - активировать Python-файл в IDA и закинуть output.json чтобы переименовать функции в читабельный вид
 
 ---
 
-### Функции и их описание (все взято с IDA и output.txt):
+## Функции и их описание
 
 | Функция | Описание |
 |---------|----------|
-| `main.getDrives` | получение списка всех дисков |
-| `main.getWebcams` | получение списка всех веб-камер |
-| `main.getMics` | получение списка всех микрофонов |
-| `main.getDevices` | получает информацию о классе устройства из системного реестра |
-| `main.getClipboardText` | получение буфера обмена |
-| `main.runKeylogger` | переключение работоспособности кейлоггера (сборщик всех нажатых клавиш) |
-| `main.getScreen + main.sendScreen` | получение / отправка экрана мониторов |
-| `main.IsIdle` | получение бездействия пользователя: проверка промежутка времени, в который пользователь ничего не вводил (используется для определения времени бездействия) |
-| `main.getActiveWin + main.GetWindowText` | получение дескриптора окна с помощью main.getActiveWin и получение название окна с помощью main.GetWindowText |
-| `main.GetHWID / main_GetHWID2` | получение MachineGuid (HWID) с помощью реестра |
-| `main.tonResolve + main.tryTonResolve` | проверяет запущен-ли процесс каждую секунду, и если нет - пересоздает его |
-| `main.executeCommand / main.shellCommand` | запуск программы / выполнение shell-кода |
-| `main.getRandomFolders / main.getRandomProcesses` | поиск рандомного пути папки + названия рандомного процесса чтобы замаскировать RAT-файл |
-| `main.Steal` | полный запуск функций: собирает логины/пароли (main.getGecko / main.getChrome / main.getYandexLogins), cookies, сессии (steam, telegram, discord / main.getSteams, main.getDiscord), скриншот, крипто-кошельки и упаковывает всё в .zip |
-
-(функции не все, закинул самые основные в описание чтобы показать как работает этот ратник)
+| `main.getDrives` | Получение списка всех дисков |
+| `main.getWebcams` | Получение списка всех веб-камер |
+| `main.getMics` | Получение списка всех микрофонов |
+| `main.getDevices` | Получение информации о классе устройства из системного реестра |
+| `main.getClipboardText` | Получение буфера обмена |
+| `main.runKeylogger` | Сборщик всех нажатых клавиш |
+| `main.getScreen + main.sendScreen` | Получение / отправка скриншотов мониторов |
+| `main.IsIdle` | Проверка времени бездействия пользователя |
+| `main.getActiveWin + main.GetWindowText` | Получение заголовка активного окна |
+| `main.GetHWID / main_GetHWID2` | Получение MachineGuid (HWID) из реестра |
+| `main.tonResolve + main.tryTonResolve` | **Получение C2-адресов через TON DNS (The Open Network)** |
+| `main.executeCommand / main.shellCommand` | Запуск программ / выполнение shell-кода |
+| `main.getRandomFolders / main.getRandomProcesses` | Поиск случайных папок и процессов для маскировки RAT |
+| `main.Steal` | Сбор логинов/паролей, cookies, сессий, скриншотов, крипто-кошельков и упаковка в .zip |
 
 ---
 
-### Детали
-* Найден текст в main.main, который сначала был закодирован в HEX, после в Base64, раскодировав - это оказался список названия файлов, под которые маскировался RAT-файл (если вы найдёте такой файл, который был запущен не системой, а Вами - скорее всего это замаскированный RAT-Файл, при этом смотрите расположение откуда он был запущен):
-  ```json
-  [
+## C2 (Command & Control) коммуникация
+
+RAT использует **децентрализованную сеть TON** для получения адресов C2:
+
+1. В бинарнике хранятся **RSA-зашифрованные TON-адреса** (4 бэкапа)
+2. При запуске RAT расшифровывает их и делает DNS-запрос к TON
+3. TON DNS возвращает JSON с реальными C2-адресами
+4. RAT подключается к полученному C2 и ждет команд
+
+**Смена C2:** Если текущий C2 недоступен, RAT переключается на следующий из списка. Всего 4 бэкап-адреса.
+
+---
+
+## Кража крипто-кошельков
+
+RAT целенаправленно охотится за крипто-кошельками:
+
+| Кошелек | Способ кражи |
+|---------|--------------|
+| MetaMask | Кража seed-фраз и приватных ключей |
+| TonKeeper | Кража через TON-адреса |
+| SuiWallet | Кража данных кошелька |
+| Liquality | Кража мнемонической фразы |
+| Maiar DEFI | Кража данных DeFi-кошелька |
+
+---
+
+## Маскировка
+
+Найден JSON со списком системных процессов, под которые маскируется RAT:
+
+```json
+[
     "explorer.exe",
     "svchost.exe",
     "smss.exe",
@@ -44,7 +71,17 @@
     "wininit.exe",
     "spoolsv.exe",
     "dwm.exe"
-  ]
-  ```
-* Ссылка на дизассемблерный файл и .json файл сигнатур для GoReSym: https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
-* VirusTotal: https://www.virustotal.com/gui/file/a01d84b8274b53fa29c2904457057dcd4c969a1d769eca103f5c9507091720fe
+]
+```
+
+**Признак заражения:** Если вы видите `explorer.exe` или `svchost.exe`, запущенный НЕ из `C:\Windows\System32`, а из `Temp` или `AppData` — это RAT.
+
+---
+
+## Дополнительные файлы
+
+* Дизассемблерный файл и .json сигнатур для GoReSym:  
+  https://drive.google.com/file/d/1S-Pit76ttTK62xTlrJs_CpoQyOuRmfBA/view?usp=sharing
+
+* VirusTotal:  
+  https://www.virustotal.com/gui/file/a01d84b8274b53fa29c2904457057dcd4c969a1d769eca103f5c9507091720fe
