@@ -14,6 +14,7 @@
 5. Сохраняет Discord-токены для входа в аккаунты (Clients\\DiscordTokens.txt).
 6. Сохраняет Steam-токены для входа в аккаунты (Clients\\SteamTokens.txt).
 7. Сохраняет из каждого браузера Token, Cookies, Autofills, Logins (Browsers\\Token_ | Browsers\\Cookies_ | Browsers\\Autofills_ | Browsers\\Logins_), при этом получая Master-Key (main.GetChromiumMasterKeys | main.GetGeckoMasterKey).
+8. ZIP-архив в котором сохранена информация скачивается с панели пользователя кто создавал ратник, и от конкретного пользователя от которого он запросил информацию.
 
 ---
 
