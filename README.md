@@ -22,7 +22,7 @@
 | `main.tonResolve + main.tryTonResolve` | **Получение C2-адресов через TON DNS (The Open Network)** |
 | `main.executeCommand / main.shellCommand` | Запуск программ / выполнение shell-кода |
 | `main.getRandomFolders / main.getRandomProcesses` | Поиск случайных папок и процессов для маскировки RAT |
-| `main.Steal` | Сбор логинов/паролей, cookies, сессий, скриншотов, крипто-кошельков и упаковка в .zip |
+| `main.Steal / main.main` | Сбор логинов/паролей, cookies, сессий, скриншотов, крипто-кошельков и упаковка в .zip / подготовка программы к работе |
 
 ---
 
